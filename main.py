@@ -60,5 +60,5 @@ if __name__ == '__main__':
     elif value.lower() in ('st','study','studing'):
         startStuding()
     else:
-            print("Does not know what you want!")
-            value = input()
+        print("Does not know what you want!")
+        value = input()
