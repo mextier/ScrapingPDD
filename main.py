@@ -3,9 +3,11 @@
 #https://habrahabr.ru/post/280238/
 
 
+pdd_url = "http://www.avtoinstruktor76.ru/bileti_B/bileti_pdd_2017_on-lain_oficialni_tekst_GIBDD_kategoriya_B.php"
 
-def startScrapping():
-    print("start scrapping")
+def startScraping():
+
+    print("start scraping")
 
 
 def startStuding():
@@ -14,10 +16,10 @@ def startStuding():
 
 
 if __name__ == '__main__':
-    print("What is your choice: scapping or studing?")
+    print("What is your choice: scaping or studing?")
     value = input()
-    if value.lower() in {'sc','scr','scrap','scrapping','scrapping'}:
-        print("Wonna scrapping, are you sure?")
+    if value.lower() in {'sc','scr','scrap','scraping'}:
+        print("Wonna scraping, are you sure?")
         value = input()
         if value.lower() in {'y','yes','yep'}:
             startScrapping()
