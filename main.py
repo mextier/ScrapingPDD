@@ -5,18 +5,22 @@
 #pip install BS4
 #pip install lxml
 
+import const
+
 from urllib.request import urlopen
 from urllib.error import HTTPError
 from bs4 import BeautifulSoup
 
-pdd_url = "http://www.avtoinstruktor76.ru/bileti_B/bileti_pdd_2017_on-lain_oficialni_tekst_GIBDD_kategoriya_B.php"
-pdd_bilet_url = "http://www.avtoinstruktor76.ru/bileti_B/"
+from os import system, getcwd, makedirs, listdir, remove
+from os.path import join, dirname, exists, splitext, isfile, getctime, split
+import shutil
+from datetime import datetime
 
 def startScraping():
     bileti_urls = []
     print("Start scraping...")
     try:
-        html = urlopen(pdd_url)
+        html = urlopen(const.pdd_url)
     except HTTPError as e:
         html = None
         print(e)
@@ -32,12 +36,23 @@ def startScraping():
             for link in bsObj.findAll("a"):
                 linkhref = link.get('href')
                 if linkhref.startswith("bileti") and linkhref.endswith(".php"):
-                    bileti_urls.append(pdd_bilet_url+linkhref)
+                    bileti_urls.append(const.pdd_bilet_url+linkhref)
     if len(bileti_urls)==0:
-        print("Can't find any bilty hrefs")
+        print("Can't find any hrefs")
         return
-
+    else:
+        dirname = join(getcwd(), const.data_dir)
+        try:
+            shutil.rmtree(dirname)
+            removedirs(dirname)
+        except Exception as e:
+            pass
+        finally:
+            makedirs(dirname)
+    bn = 0
+    starttime = datetime.now()
     for url in bileti_urls:
+        bn += 1
         try:
             html = urlopen(url)
         except HTTPError as e:
@@ -50,14 +65,13 @@ def startScraping():
             except Exception as e:
                 print("Error while parsing "+url)
             else:
-                pass
-
+                makedirs(join(dirname,const.bilet_dir_prefix+const.bilet_dir_format.format(bn)))
+    print('Done in  {}'.format(datetime.now() - starttime))
 
 
 
 def startStuding():
     print("start studing")
-
 
 
 if __name__ == '__main__':
