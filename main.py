@@ -38,7 +38,21 @@ def startScraping():
         return
 
     for url in bileti_urls:
-        pass
+        try:
+            html = urlopen(url)
+        except HTTPError as e:
+            html = None
+            print("Can't open url "+url)
+        else:
+            print("Scaping "+url)
+            try:
+                bsObj = BeautifulSoup(html.read(),"html.parser")
+            except Exception as e:
+                print("Error while parsing "+url)
+            else:
+                pass
+
+
 
 
 def startStuding():
