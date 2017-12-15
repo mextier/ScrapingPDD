@@ -66,7 +66,26 @@ def startScraping():
                 print("Error while parsing "+url)
             else:
                 makedirs(join(dirname,const.bilet_dir_prefix+const.bilet_dir_format.format(bn)))
-                print(bsObj.html.body.table.table.prettify(),end='n')
+                qs = bsObj.findAll('p',{'align':'center'},{'class':'стиль10'})
+                for q in qs:
+                    if q.get_text().startswith(const.bilet_ptext):
+                        print(q.get_text())
+                        print("-"*const.string_delimiter_len)
+                        qparent = q.parent.parent.parent
+                        q1=qparent.find('span',{'class':'стиль2'})
+                        print(q1.get_text())
+                        print("-"*const.string_delimiter_len)
+                        ops = qparent.findAll('span',{'class':'стиль4'})
+                        for o in ops:
+                            print(o.get_text())
+                        a=qparent.find('button')['title']
+                        print("-"*const.string_delimiter_len)
+                        print(a)
+                        #print(q.parent.parent.parent)
+                        break
+                        #print(q.get_text())
+                        #print(q.attrs)
+
                 break
     print('Done in  {}'.format(datetime.now() - starttime))
 
