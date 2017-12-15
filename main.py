@@ -59,13 +59,15 @@ def startScraping():
             html = None
             print("Can't open url "+url)
         else:
-            print("Scaping "+url)
+            print("Scraping "+url)
             try:
                 bsObj = BeautifulSoup(html.read(),"html.parser")
             except Exception as e:
                 print("Error while parsing "+url)
             else:
                 makedirs(join(dirname,const.bilet_dir_prefix+const.bilet_dir_format.format(bn)))
+                print(bsObj.html.body.table.table.prettify(),end='n')
+                break
     print('Done in  {}'.format(datetime.now() - starttime))
 
 
@@ -75,7 +77,7 @@ def startStuding():
 
 
 if __name__ == '__main__':
-    print("What is your choice: scaping or studing?")
+    print("What is your choice: scraping or studing?")
     value = input()
     if value.lower() in {'sc','scr','scrap','scraping'}:
         print("Wonna scraping, are you sure?")
@@ -85,7 +87,7 @@ if __name__ == '__main__':
         else:
             print("Cancelled!")
             value = input()
-    elif value.lower() in ('st','study','studing'):
+    elif value.lower() in {'st','study','studing'}:
         startStuding()
     else:
         print("Does not know what you want!")
