@@ -4,7 +4,7 @@
 #https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 #pip install BS4
 #pip install lxml
-#pip install request
+#pip install requests
 
 import const
 
