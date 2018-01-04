@@ -62,7 +62,7 @@ def startScraping():
     starttime = datetime.now()
     for url in bileti_urls:
         bn += 1
-        if bn == 1010:
+        if bn != 10:
             continue
         try:
             html = urlopen(url)
@@ -107,8 +107,11 @@ def startScraping():
                                     o1[i + 1:].lstrip().rstrip())
                             a = qparent.find('button')['title']
                             i = a.find("ответ:")
-                            questionAnswer = int(
-                                a[len("ответ:") + i:len("ответ:") + i + 2])
+                            #no right answer for B10-Q20
+                            if bn==10 and bnq==20:
+                                questionAnswer=1
+                            else:
+                                questionAnswer = int(a[len("ответ:") + i:len("ответ:") + i + 2])
                             i = a.find("Комментарии:")
                             questionExplanation = a[len(
                                 "Комментарии:") + i:].replace("\r", "").replace("\n", "").lstrip().rstrip()
